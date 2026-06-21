@@ -1,84 +1,268 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Study Hub - Login with Phone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Hub - Login & Sign Up</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .auth-container { background: #fff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 123, 255, 0.1); width: 100%; max-width: 350px; text-align: center; }
-        .logo-text { font-size: 24px; font-weight: bold; color: #0056b3; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #e1e8ed; border-radius: 8px; box-sizing: border-box; }
-        button { background: #007bff; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        #recaptcha-container { margin: 10px 0; }
+        :root {
+            --primary-blue: #007bff;
+            --dark-blue: #0056b3;
+            --light-bg: #f0f4f9;
+            --border-color: #e1e8ed;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--light-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .auth-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.08);
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: bold;
+            color: var(--dark-blue);
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .sub-text {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: #444;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+        }
+
+        .auth-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 13px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 5px;
+        }
+
+        .auth-btn:hover {
+            background: var(--dark-blue);
+        }
+
+        /* --- GOOGLE BUTTON --- */
+        .divider {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #aaa;
+            font-size: 12px;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .divider:not(:empty)::before { margin-right: .5em; }
+        .divider:not(:empty)::after { margin-left: .5em; }
+
+        .google-btn {
+            background: #ffffff;
+            color: #444;
+            border: 2px solid var(--border-color);
+            width: 100%;
+            padding: 11px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.2s;
+        }
+        .google-btn:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+        .google-icon-box {
+            width: 16px;
+            height: 16px;
+            background-color: #444; /* Clean solid shape representing vector logo placement */
+            border-radius: 2px;
+        }
+
+        .toggle-link {
+            margin-top: 25px;
+            font-size: 13px;
+            color: #666;
+        }
+        .toggle-link a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .toggle-link a:hover {
+            text-decoration: underline;
+        }
+
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<div class="auth-container">
-    <div class="logo-text">STUDY HUB</div>
-    
-    <!-- Step 1: Enter Phone Number -->
-    <div id="phone-input-div">
-        <input type="tel" id="phone-number" placeholder="+91xxxxxxxxxx">
-        <div id="recaptcha-container"></div>
-        <button id="send-otp-btn">Send OTP</button>
+    <div class="auth-container">
+        <div class="logo-text">STUDY HUB</div>
+        
+        <div id="login-view">
+            <div class="sub-text">Log in to manage your study portal</div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="login-email" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="login-password" placeholder="••••••••">
+            </div>
+            <button class="auth-btn" id="login-action">Sign In</button>
+            
+            <div class="divider">OR</div>
+            <button class="google-btn" id="google-login-action">
+                <div class="google-icon-box"></div>
+                Continue with Google
+            </button>
+
+            <div class="toggle-link">
+                Don't have an account? <a href="#" onclick="toggleAuthView()">Sign Up</a>
+            </div>
+        </div>
+
+        <div id="signup-view" class="hidden">
+            <div class="sub-text">Create an admin account</div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="signup-email" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="signup-password" placeholder="Min 6 characters">
+            </div>
+            <button class="auth-btn" id="signup-action">Create Account</button>
+            
+            <div class="toggle-link">
+                Already have an account? <a href="#" onclick="toggleAuthView()">Sign In</a>
+            </div>
+        </div>
     </div>
 
-    <!-- Step 2: Enter OTP -->
-    <div id="otp-input-div" class="hidden">
-        <input type="text" id="otp-code" placeholder="Enter 6 digit OTP">
-        <button id="verify-otp-btn">Verify OTP</button>
-    </div>
-</div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-    import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyAn7E7olxRpT_dBvQCL2K5nx-slpuTb1e8",
+            authDomain: "study-327d0.firebaseapp.com",
+            projectId: "study-327d0",
+            storageBucket: "study-327d0.firebasestorage.app",
+            messagingSenderId: "718476771682",
+            appId: "1:718476771682:web:154c4253a4a68cc2aeec3b"
+        };
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyAn7E7olxRpT_dBvQCL2K5nx-slpuTb1e8",
-        authDomain: "study-327d0.firebaseapp.com",
-        projectId: "study-327d0",
-        storageBucket: "study-327d0.firebasestorage.app",
-        messagingSenderId: "718476771682",
-        appId: "1:718476771682:web:154c4253a4a68cc2aeec3b"
-    };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    auth.languageCode = 'en';
-
-    // 1. Setup ReCaptcha
-    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-        'size': 'normal'
-    });
-
-    // 2. Send OTP
-    document.getElementById('send-otp-btn').addEventListener('click', () => {
-        const phoneNumber = document.getElementById('phone-number').value;
-        signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
-            .then((confirmationResult) => {
-                window.confirmationResult = confirmationResult;
-                alert("OTP Sent!");
-                document.getElementById('phone-input-div').classList.add('hidden');
-                document.getElementById('otp-input-div').classList.remove('hidden');
-            }).catch((error) => {
-                alert("Error sending OTP: " + error.message);
-            });
-    });
-
-    // 3. Verify OTP & Redirect
-    document.getElementById('verify-otp-btn').addEventListener('click', () => {
-        const otp = document.getElementById('otp-code').value;
-        window.confirmationResult.confirm(otp).then((result) => {
-            alert("Verification Successful!");
-            window.location.href = "home.html"; // Home page-ku redirect aagum
-        }).catch((error) => {
-            alert("Wrong OTP!");
+        // 1. Email Login
+        document.getElementById('login-action').addEventListener('click', () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            signInWithEmailAndPassword(auth, email, password)
+                .then(() => {
+                    window.location.href = "home.html";
+                })
+                .catch((error) => {
+                    alert("Login failed: " + error.message);
+                });
         });
-    });
-</script>
+
+        // 2. Email Register
+        document.getElementById('signup-action').addEventListener('click', () => {
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(() => {
+                    alert("Account created successfully!");
+                    window.location.href = "home.html";
+                })
+                .catch((error) => {
+                    alert("Registration failed: " + error.message);
+                });
+        });
+
+        // 3. Google Sign-In (Direct Redirect Setup)
+        document.getElementById('google-login-action').addEventListener('click', () => {
+            signInWithPopup(auth, googleProvider)
+                .then(() => {
+                    window.location.href = "home.html";
+                })
+                .catch((error) => {
+                    alert("Google Sign-In failed: " + error.message);
+                });
+        });
+    </script>
+
+    <script>
+        // Layout presentation switch helper
+        function toggleAuthView() {
+            document.getElementById('login-view').classList.toggle('hidden');
+            document.getElementById('signup-view').classList.toggle('hidden');
+        }
+    </script>
 </body>
 </html>
-
