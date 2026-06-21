@@ -1,0 +1,387 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Hub - Education Platform</title>
+    <style>
+        /* CSS styling matched perfectly to the exact UI style in design 1000004454.png */
+        :root {
+            --primary-blue: #007bff;
+            --dark-blue: #0056b3;
+            --light-bg: #f8faff;
+            --text-dark: #333333;
+            --border-color: #e1e8ed;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary-blue); }
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- CONTAINER --- */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            margin-bottom: 40px;
+        }
+        .hero-text h1 {
+            font-size: 38px;
+            color: var(--dark-blue);
+            margin: 0 0 15px 0;
+            line-height: 1.2;
+        }
+        .hero-text p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .hero-buttons { display: flex; gap: 15px; }
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-secondary {
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 10px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        /* Image Placeholder Box Layout from Wireframe */
+        .hero-image-box {
+            background-color: #eef3f8;
+            height: 250px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #cbd5e1;
+        }
+        .image-icon-shape {
+            width: 60px;
+            height: 45px;
+            background: #cbd5e1;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        /* --- SECTION HEADING --- */
+        .section-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 50px 0 25px 0;
+            letter-spacing: 1px;
+            color: #222;
+        }
+
+        /* --- FEATURES GRID --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .feature-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            text-align: left;
+            border-left: 5px solid var(--primary-blue);
+        }
+        .feature-icon-bar {
+            width: 35px;
+            height: 6px;
+            background-color: var(--primary-blue);
+            border-radius: 3px;
+            margin-bottom: 15px;
+        }
+        .feature-card h3 { margin: 0 0 10px 0; color: #222; font-size: 18px; }
+        .feature-card p { margin: 0; color: #666; font-size: 14px; line-height: 1.5; }
+
+        /* --- CHOOSE YOUR CLASS CARDS --- */
+        .class-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .class-card {
+            background: #ffffff;
+            padding: 35px 20px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            transition: transform 0.3s;
+        }
+        .class-card:hover { transform: translateY(-5px); }
+        .c-10 { border-top: 5px solid #28a745; }
+        .c-11 { border-top: 5px solid #007bff; }
+        .c-12 { border-top: 5px solid #e83e8c; }
+        
+        .class-icon-shape {
+            width: 50px;
+            height: 30px;
+            background: #f0f0f0;
+            margin: 0 auto 15px auto;
+            border-radius: 4px;
+        }
+        .class-card h2 { margin: 0 0 10px 0; font-size: 22px; }
+        .class-card p { color: #777; margin-bottom: 25px; font-size: 14px; }
+        
+        .explore-btn {
+            display: inline-block;
+            padding: 10px 35px;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .bg-10 { background-color: #28a745; }
+        .bg-11 { background-color: #007bff; }
+        .bg-12 { background-color: #e83e8c; }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #1a252f;
+            color: #a4b0be;
+            padding: 50px 5% 20px 5%;
+            margin-top: 60px;
+            font-size: 14px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 16px; text-transform: uppercase; }
+        .footer-col p { line-height: 1.6; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: #a4b0be; text-decoration: none; transition: color 0.3s; }
+        .footer-col ul li a:hover { color: #fff; }
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #2c3e50;
+            margin-top: 40px;
+            padding-top: 20px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">STUDY HUB</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Classes</a></li>
+            <li><a href="#">Subjects</a></li>
+            <li><a href="#">Live Tuition</a></li>
+            <li><a href="#">Quiz</a></li>
+            <li><a href="#">Notes</a></li>
+        </ul>
+        <button class="logout-btn" id="logout-click">Sign Out</button>
+    </nav>
+
+    <div class="container">
+        
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Your Success<br>Starts Here</h1>
+                <p>Important Questions, Notes, Live Classes, Quizzes & More – All in One Place for 10th, 11th & 12th Students.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn-primary">Start Learning</a>
+                    <a href="#" class="btn-secondary">Explore Classes</a>
+                </div>
+            </div>
+            <!-- Accurate Wireframe Box Layout for image from 1000004454.png -->
+            <div class="hero-image-box">
+                <div class="image-icon-shape"></div>
+            </div>
+        </section>
+
+        <!-- THREE REASONS BLOCK -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon-bar"></div>
+                <h3>Important Questions</h3>
+                <p>Chapter wise important questions for all main board subjects.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-bar"></div>
+                <h3>Live Tuition Classes</h3>
+                <p>Join live interactive classes conducted with expert subject teachers.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-bar"></div>
+                <h3>Quizzes & Tests</h3>
+                <p>Practice instant dashboard online tests to level up your final performance.</p>
+            </div>
+        </div>
+
+        <!-- CHOOSE YOUR CLASS TITLE -->
+        <div class="section-title">Choose Your Class</div>
+        
+        <!-- CLASS SELECTION SECTION -->
+        <section class="class-grid">
+            <div class="class-card c-10">
+                <div class="class-icon-shape"></div>
+                <h2>10th Standard</h2>
+                <p>All Board Subjects</p>
+                <a href="class-page.html?class=10th" class="explore-btn bg-10">Explore</a>
+            </div>
+            <div class="class-card c-11">
+                <div class="class-icon-shape"></div>
+                <h2>11th Standard</h2>
+                <p>Science | Commerce | Maths</p>
+                <a href="class-page.html?class=11th" class="explore-btn bg-11">Explore</a>
+            </div>
+            <div class="class-card c-12">
+                <div class="class-icon-shape"></div>
+                <h2>12th Standard</h2>
+                <p>Science | Commerce | Maths</p>
+                <a href="class-page.html?class=12th" class="explore-btn bg-12">Explore</a>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER SECTION -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>STUDY HUB</h4>
+                <p>The best learning platform for 10th, 11th & 12th standard students.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Classes</a></li>
+                    <li><a href="#">Quiz</a></li>
+                    <li><a href="#">Notes</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Important Questions</a></li>
+                    <li><a href="#">Model Papers</a></li>
+                    <li><a href="#">Study Tips</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Study Hub. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Firebase Session Protection Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAn7E7olxRpT_dBvQCL2K5nx-slpuTb1e8",
+            authDomain: "study-327d0.firebaseapp.com",
+            projectId: "study-327d0",
+            storageBucket: "study-327d0.firebasestorage.app",
+            messagingSenderId: "718476771682",
+            appId: "1:718476771682:web:154c4253a4a68cc2aeec3b"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Security check
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+            }
+        });
+
+        // Logout listener
+        document.getElementById('logout-click').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            });
+        });
+    </script>
+</body>
+</html>
+

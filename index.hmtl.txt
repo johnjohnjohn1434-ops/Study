@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Study Hub - Login with Phone</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .auth-container { background: #fff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 123, 255, 0.1); width: 100%; max-width: 350px; text-align: center; }
+        .logo-text { font-size: 24px; font-weight: bold; color: #0056b3; margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #e1e8ed; border-radius: 8px; box-sizing: border-box; }
+        button { background: #007bff; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        #recaptcha-container { margin: 10px 0; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="auth-container">
+    <div class="logo-text">STUDY HUB</div>
+    
+    <!-- Step 1: Enter Phone Number -->
+    <div id="phone-input-div">
+        <input type="tel" id="phone-number" placeholder="+91xxxxxxxxxx">
+        <div id="recaptcha-container"></div>
+        <button id="send-otp-btn">Send OTP</button>
+    </div>
+
+    <!-- Step 2: Enter OTP -->
+    <div id="otp-input-div" class="hidden">
+        <input type="text" id="otp-code" placeholder="Enter 6 digit OTP">
+        <button id="verify-otp-btn">Verify OTP</button>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+    import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAn7E7olxRpT_dBvQCL2K5nx-slpuTb1e8",
+        authDomain: "study-327d0.firebaseapp.com",
+        projectId: "study-327d0",
+        storageBucket: "study-327d0.firebasestorage.app",
+        messagingSenderId: "718476771682",
+        appId: "1:718476771682:web:154c4253a4a68cc2aeec3b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    auth.languageCode = 'en';
+
+    // 1. Setup ReCaptcha
+    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        'size': 'normal'
+    });
+
+    // 2. Send OTP
+    document.getElementById('send-otp-btn').addEventListener('click', () => {
+        const phoneNumber = document.getElementById('phone-number').value;
+        signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
+            .then((confirmationResult) => {
+                window.confirmationResult = confirmationResult;
+                alert("OTP Sent!");
+                document.getElementById('phone-input-div').classList.add('hidden');
+                document.getElementById('otp-input-div').classList.remove('hidden');
+            }).catch((error) => {
+                alert("Error sending OTP: " + error.message);
+            });
+    });
+
+    // 3. Verify OTP & Redirect
+    document.getElementById('verify-otp-btn').addEventListener('click', () => {
+        const otp = document.getElementById('otp-code').value;
+        window.confirmationResult.confirm(otp).then((result) => {
+            alert("Verification Successful!");
+            window.location.href = "home.html"; // Home page-ku redirect aagum
+        }).catch((error) => {
+            alert("Wrong OTP!");
+        });
+    });
+</script>
+</body>
+</html>
+
