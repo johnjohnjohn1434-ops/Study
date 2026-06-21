@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Hub - Class Materials</title>
+    <style>
+        :root {
+            --primary-blue: #007bff;
+            --dark-blue: #0056b3;
+            --light-bg: #f8faff;
+            --text-dark: #333333;
+            --border-color: #e1e8ed;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        .breadcrumb {
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* --- MAIN CONTENT SPLIT LAYOUT --- */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* --- LEFT SIDEBAR (SUBJECTS) --- */
+        .sidebar {
+            background-color: #ffffff;
+            border-right: 1px solid var(--border-color);
+            padding: 30px 20px;
+        }
+        .class-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-blue);
+        }
+        .sidebar-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .subject-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .subject-item {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #555;
+            transition: all 0.2s ease;
+        }
+        .subject-item:hover, .subject-item.active {
+            background-color: #edf5ff;
+            color: var(--primary-blue);
+        }
+
+        /* --- RIGHT CONTENT AREA (CHAPTERS) --- */
+        .content-area {
+            padding: 40px;
+        }
+        .section-header {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #222;
+        }
+        .chapter-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .chapter-card {
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.01);
+        }
+        .chapter-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .chapter-icon-box {
+            width: 40px;
+            height: 40px;
+            background-color: #eef3f8;
+            border-radius: 6px;
+        }
+        .chapter-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        .view-btn {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #333;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .view-btn:hover {
+            background-color: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">STUDY HUB</div>
+        <div class="breadcrumb">Home &gt; <span id="class-breadcrumb">10th</span> &gt; <span id="subject-breadcrumb">Mathematics</span></div>
+    </nav>
+
+    <div class="main-layout">
+        
+        aside class="sidebar">
+            <div class="class-title" id="class-heading">10th Standard</div>
+            <div class="sidebar-label">Subjects</div>
+            <ul class="subject-list">
+                <li class="subject-item active" onclick="changeSubject('Mathematics')">Mathematics</li>
+                <li class="subject-item" onclick="changeSubject('Science')">Science</li>
+                <li class="subject-item" onclick="changeSubject('Social Science')">Social Science</li>
+                <li class="subject-item" onclick="changeSubject('English')">English</li>
+                <li class="subject-item" onclick="changeSubject('Tamil')">Tamil</li>
+            </ul>
+        </aside>
+
+        <main class="content-area">
+            <div class="section-header" id="chapter-list-title">Chapter List</div>
+            
+            <div class="chapter-list" id="chapters-container">
+                <div class="chapter-card">
+                    <div class="chapter-info">
+                        <div class="chapter-icon-box"></div>
+                        <div class="chapter-name">Chapter 1 – Real Numbers</div>
+                    </div>
+                    <a href="chapter-page.html?chapter=1" class="view-btn">View</a>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-info">
+                        <div class="chapter-icon-box"></div>
+                        <div class="chapter-name">Chapter 2 – Polynomials</div>
+                    </div>
+                    <a href="chapter-page.html?chapter=2" class="view-btn">View</a>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-info">
+                        <div class="chapter-icon-box"></div>
+                        <div class="chapter-name">Chapter 3 – Pair of Linear Equations</div>
+                    </div>
+                    <a href="chapter-page.html?chapter=3" class="view-btn">View</a>
+                </div>
+
+                <div class="chapter-card">
+                    <div class="chapter-info">
+                        <div class="chapter-icon-box"></div>
+                        <div class="chapter-name">Chapter 4 – Quadratic Equations</div>
+                    </div>
+                    <a href="chapter-page.html?chapter=4" class="view-btn">View</a>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        // Dynamic UI switching functions
+        function changeSubject(subjectName) {
+            // Update breadcrumb text
+            document.getElementById('subject-breadcrumb').innerText = subjectName;
+            
+            // Toggle Active UI class in sidebar list
+            const items = document.querySelectorAll('.subject-item');
+            items.forEach(item => {
+                if(item.innerText === subjectName) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            // Demo testing console alert log
+            console.log("Subject changed to: " + subjectName);
+        }
+
+        // URL parameter processing to fetch custom class string context
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentClass = urlParams.get('class') || '10th';
+        document.getElementById('class-heading').innerText = currentClass + " Standard";
+        document.getElementById('class-breadcrumb').innerText = currentClass;
+    </script>
+</body>
+</html>
+
